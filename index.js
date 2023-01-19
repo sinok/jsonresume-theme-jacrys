@@ -2,37 +2,21 @@ var fs = require('fs');
 var _ = require('lodash');
 var gravatar = require('gravatar');
 var Mustache = require('mustache');
-
+var userLocale = Intl.DateTimeFormat().resolvedOptions().locale;
 var d = new Date();
 var curyear = d.getFullYear();
 
 function getMonth(startDateStr) {
-    switch (startDateStr.substr(5,2)) {
-    case '01':
-        return "January ";
-    case '02':
-        return "February ";
-    case '03':
-        return "March ";
-    case '04':
-        return "April ";
-    case '05':
-        return "May ";
-    case '06':
-        return "June ";
-    case '07':
-        return "July ";
-    case '08':
-        return "August ";
-    case '09':
-        return "September ";
-    case '10':
-        return "October ";
-    case '11':
-        return "November ";
-    case '12':
-        return "December ";
-    }
+
+
+    
+    var objDate = new Date();
+    objDate.setDate(1);
+    objDate.setMonth(parseInt(startDateStr.substr(5,2)-1));
+    
+    month = objDate.toLocaleString(userLocale, { month: "long" });
+
+    return month;
 }
 
 function render(resumeObject) {
